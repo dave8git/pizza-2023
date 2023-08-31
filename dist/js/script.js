@@ -144,7 +144,6 @@
         thisProduct.processOrder();
         thisProduct.addToCart(); 
       })
-      //console.log('initOrderForm');
     }
 
     initAmountWidget() {
@@ -191,8 +190,7 @@
     }
     addToCart() {
       const thisProduct = this;
-      console.log(thisProduct);
-      app.cart.add(thisProduct.prepareCartProduct());
+      app.cart.add(thisProduct.prepareCartProduct()); // instancja klasy Cart została zapisana w app na dole,i teraz mamy dostęp do jej metod
     }
     prepareCartProduct() {
       const thisProduct = this;
@@ -200,6 +198,7 @@
       const productSummary = {}
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
+      productSummary.amount = thisProduct.amountWidget.value;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.price;
       productSummary.params = thisProduct.prepareCartProductParams();
@@ -209,29 +208,21 @@
     prepareCartProductParams() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.dom.form);
-
-      //let price = thisProduct.data.price;
       const params = {};
       for (let paramId in thisProduct.data.params) {
-        //console.log('paramId', paramId);
         const param = thisProduct.data.params[paramId];
         params[paramId] = {
           label: param.label,
           options: {}
         }
-        //console.log('param', param);
         for (let optionId in param.options) {
-          //console.log('optionId', optionId);
           const option = param.options[optionId];
-          //console.log('option', option);
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
-          //console.log('optionSelected', optionSelected);
           if(optionSelected) {
-            params[paramId].options[optionId] = option;
+            params[paramId].options[optionId] = option.label; // musi być option.label, bez label będzie wrzucało całe obiekty option
           }
         }
       }
-      console.log(params);
       return params; 
     }
   }
@@ -311,8 +302,6 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
-
-      console.log('new Cart', thisCart);
     }
 
     getElements(element) {
@@ -323,6 +312,10 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+      thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
+      thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
+      thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
     }
     initActions() {
       const thisCart = this;
@@ -332,13 +325,77 @@
     }
     add(menuProduct) {
       const thisCart = this; 
-      console.log('menuProduct', menuProduct);
-      const generatedHtml = templates.cartProduct(menuProduct);
-      thisCart.cartProductElem = utils.createDOMFromHTML(generatedHtml);
-      console.log('generatedHTML', thisCart.cartProductElem);
-      thisCart.dom.productList.appendChild(thisCart.cartProductElem);
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
+
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      thisCart.update();
+    }
+    update() {
+      const thisCart = this;
+      const deliveryFee = settings.cart.defaultDeliveryFee;
+      let totalNumber = 0;
+      let subtotalPrice = 0; 
+
+      for(let product of thisCart.products) {
+        // console.log(product.price);
+        // console.log(product.amount);
+        totalNumber += product.amount;
+        subtotalPrice += product.price;
+
+        console.log('product', product);
+      }
+      
+      thisCart.totalPrice = subtotalPrice + deliveryFee;
+      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      for (let total of thisCart.dom.totalPrice) {
+        total.innerHTML = subtotalPrice + deliveryFee;
+      }
+      thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
+      thisCart.dom.totalNumber.innerHTML = totalNumber;
+
+      console.log('subtotalPrice',subtotalPrice);
+      console.log('thisCart.totalPrice', thisCart.totalPrice);
     }
   }
+
+  class CartProduct {
+    constructor(menuProduct, element) {// menuProduct - referencja do obiektu podsumowania // element - referencja do utworzonego dla produktu elementu HTML
+      // menuProduct - obiekt podsumowania; // element - html wygenerowany na podstawie danych z tego obiektu
+      const thisCartProduct = this;
+      thisCartProduct.element = element;
+      thisCartProduct.id = menuProduct.id; 
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.params = menuProduct.params;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.priceSingle = menuProduct.priceSingle; 
+
+      thisCartProduct.getElements(element); 
+      thisCartProduct.initAmountWidget();
+    }
+
+    getElements(element) {// czyli selektory działają na elemencie poszczególnego produktu
+      const thisCartProduct = this;
+      thisCartProduct.dom = {}
+      thisCartProduct.dom.wrapper = element; 
+      thisCartProduct.dom.amountWidgetElem = element.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+    }
+
+    initAmountWidget() {
+      const thisCartProduct = this;
+      thisCartProduct.amountWidget = new amountWidget(thisCartProduct.dom.amountWidgetElem); //tworzymy nową instancję amountWidget 
+      thisCartProduct.dom.amountWidgetElem.addEventListener('click', function () {
+        thisCartProduct.amount = thisCartProduct.amountWidget.value; // korzystamy z nowej instancji amountWidget
+        thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
+    }
+  }
+
   const app = {
     initCart: function() {
       const thisApp = this;
