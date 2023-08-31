@@ -288,7 +288,9 @@
 
     announce() {
       const thisWidget = this; 
-      const event = new Event('updated');
+      const event = new Event('updated', {
+        bubbles: true
+      });
       thisWidget.element.dispatchEvent(event);
       //console.log(event);
     }
@@ -321,6 +323,12 @@
       const thisCart = this;
       thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+      thisCart.dom.productList.addEventListener('updated', function() {
+        thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function(e) {
+        thisCart.remove(e.detail.cartProduct);
       });
     }
     add(menuProduct) {
@@ -359,6 +367,13 @@
       console.log('subtotalPrice',subtotalPrice);
       console.log('thisCart.totalPrice', thisCart.totalPrice);
     }
+    remove(cartProduct) {
+      const thisCart = this;
+      cartProduct.dom.wrapper.remove(); 
+      const index = thisCart.products.indexOf(cartProduct); 
+      thisCart.products.splice(index, 1);
+      thisCart.update();
+    }
   }
 
   class CartProduct {
@@ -375,6 +390,7 @@
 
       thisCartProduct.getElements(element); 
       thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions(); 
     }
 
     getElements(element) {// czyli selektory działają na elemencie poszczególnego produktu
@@ -383,6 +399,8 @@
       thisCartProduct.dom.wrapper = element; 
       thisCartProduct.dom.amountWidgetElem = element.querySelector(select.cartProduct.amountWidget);
       thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
     }
 
     initAmountWidget() {
@@ -393,6 +411,28 @@
         thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
+    }
+
+    initActions() {
+      const thisCartProduct = this;
+      // thisCartProduct.dom.edit.addEventListener({
+
+      // });
+      thisCartProduct.dom.remove.addEventListener('click', function (e){
+        e.preventDefault();
+        thisCartProduct.remove(e.detail.cartProduct);
+      });
+    }
+    remove() {
+      const thisCartProduct = this;
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct,
+        },
+      });
+
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
   }
 
