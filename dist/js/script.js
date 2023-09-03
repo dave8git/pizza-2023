@@ -72,6 +72,11 @@
     cart: {
       defaultDeliveryFee: 20,
     },
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
+    }
   };
   
   const templates = {
@@ -288,7 +293,7 @@
 
     announce() {
       const thisWidget = this; 
-      const event = new Event('updated', {
+      const event = new CustomEvent('updated', {
         bubbles: true
       });
       thisWidget.element.dispatchEvent(event);
@@ -318,6 +323,7 @@
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     }
     initActions() {
       const thisCart = this;
@@ -328,8 +334,12 @@
         thisCart.update();
       });
       thisCart.dom.productList.addEventListener('remove', function(e) {
-        thisCart.remove(e.detail.cartProduct);
+        thisCart.remove(e.detail.cartProduct); //można przesłać e.detail.cartProduct, bo był przekazany przy tworzeniu eventu remove w klasie CartProduct
       });
+      thisCart.dom.form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        thisCart.sendOrder();
+      })
     }
     add(menuProduct) {
       const thisCart = this; 
@@ -342,29 +352,29 @@
     }
     update() {
       const thisCart = this;
-      const deliveryFee = settings.cart.defaultDeliveryFee;
-      let totalNumber = 0;
-      let subtotalPrice = 0; 
+      thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0; 
 
       for(let product of thisCart.products) {
         // console.log(product.price);
         // console.log(product.amount);
-        totalNumber += product.amount;
-        subtotalPrice += product.price;
+        thisCart.totalNumber += product.amount;
+        thisCart.subtotalPrice += product.price;
 
         console.log('product', product);
       }
       
-      thisCart.totalPrice = subtotalPrice + deliveryFee;
-      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
-      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
+      thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
       for (let total of thisCart.dom.totalPrice) {
-        total.innerHTML = subtotalPrice + deliveryFee;
+        total.innerHTML = thisCart.subtotalPrice + thisCart.deliveryFee;
       }
       thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
-      thisCart.dom.totalNumber.innerHTML = totalNumber;
+      thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
 
-      console.log('subtotalPrice',subtotalPrice);
+      console.log('subtotalPrice',thisCart.subtotalPrice);
       console.log('thisCart.totalPrice', thisCart.totalPrice);
     }
     remove(cartProduct) {
@@ -373,6 +383,40 @@
       const index = thisCart.products.indexOf(cartProduct); 
       thisCart.products.splice(index, 1);
       thisCart.update();
+    }
+    sendOrder() {
+      const thisCart = this;
+      const url = settings.db.url + '/' + settings.db.orders;
+
+      const payload = {
+        address: thisCart.dom.form.address.value,
+        phone: thisCart.dom.form.phone.value,
+        totalPrice: thisCart.totalPrice,
+        subtotalPrice: thisCart.subtotalPrice,
+        totalNumber: thisCart.totalNumber,
+        deliveryFee: thisCart.deliveryFee,
+        products: []
+      }
+
+      for(let prod of thisCart.products) {
+        payload.products.push(prod.getData());
+      }
+      console.log('payload', payload);
+
+      const options = { 
+        method: 'POST', 
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify(payload)
+      }
+
+      fetch(url, options)
+        .then(function(response){
+          return response.json();
+        }).then(function(parsedResponse){
+          console.log('parsedResponse',parsedResponse);
+        });
     }
   }
 
@@ -434,6 +478,31 @@
 
       thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
+    prepareCartProduct() {
+      const thisProduct = this;
+
+      const productSummary = {}
+      productSummary.id = thisProduct.id;
+      productSummary.name = thisProduct.data.name;
+      productSummary.amount = thisProduct.amountWidget.value;
+      productSummary.priceSingle = thisProduct.priceSingle;
+      productSummary.price = thisProduct.price;
+      productSummary.params = thisProduct.prepareCartProductParams();
+
+      return productSummary;
+    }
+    getData() {
+      const thisCartProduct = this; 
+      const data = {};
+      data.id = thisCartProduct.id;
+      data.amount = thisCartProduct.amount;
+      data.price = thisCartProduct.price;
+      data.priceSingle = thisCartProduct.priceSingle; 
+      data.name = thisCartProduct.name;
+      data.params = thisCartProduct.params;
+
+      return data; 
+    }
   }
 
   const app = {
@@ -447,7 +516,19 @@
     initData: function () {
       const thisApp = this; // this wskazuje na obiekt app
 
-      thisApp.data = dataSource; // referencja do danych pod właściwością data
+      thisApp.data = {}; // referencja do danych pod właściwością data
+      const url = settings.db.url + '/' + settings.db.products;
+      fetch(url) 
+        .then(function(rawResponse) {
+          return rawResponse.json(); 
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+          thisApp.data.products = parsedResponse; /* save parsedResponse as thisApp.data.products */
+          thisApp.initMenu();/* execute initMenu method */
+        });
+
+        console.log('thisApp.data', JSON.stringify(thisApp.data)); //ten console.log wyświetli się wcześniej niż console.log('parsedResponse', parasedResponse), bo jest zaraz po udanym fetch, a tamten console log, jest po then
     },
 
     initMenu: function () {
@@ -455,7 +536,7 @@
 
       //console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]); // productData -- nazwa kategorii np. cake, breakfast itd. 
+        new Product(thisApp.data.products[productData], thisApp.data.products[productData]); // productData -- nazwa kategorii np. cake, breakfast itd. 
       } // thisApp.data.products[productData] -- dane w obikecie thisApp.data.products pod kluczem [productData]
       //const testProduct = new Product(); 
       //console.log('testProduct:', testProduct);
@@ -470,7 +551,7 @@
       //console.log('settings:', settings);
       //console.log('templates:', templates);
       thisApp.initData();
-      thisApp.initMenu();
+      //thisApp.initMenu();
       thisApp.initCart();
     },
   };
