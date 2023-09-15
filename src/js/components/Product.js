@@ -112,6 +112,10 @@ class Product {
       price *= thisProduct.amountWidget.value;
       thisProduct.price = price;
       thisProduct.dom.priceElem.innerHTML = price;
+      console.log(thisProduct.priceSingle);
+      console.log(price);
+      console.log(thisProduct.price);
+      console.log(thisProduct);
     }
     addToCart() {
       const thisProduct = this;

@@ -62,7 +62,10 @@ class Cart {
         // console.log(product.amount);
         thisCart.totalNumber += product.amount;
         thisCart.subtotalPrice += product.price;
-
+        console.log('product', product);
+        console.log(product.amount);
+        console.log(thisCart.totalNumber);
+        console.log(thisCart.subtotalPrice);
         console.log('product', product);
       }
       
