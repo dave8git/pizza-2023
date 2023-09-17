@@ -43,6 +43,10 @@ export  const select = {
         peopleAmount: '.people-amount',
         hoursAmount: '.hours-amount', 
         tables: '.floor-plan .table',
+        tableWrapper: '.floor-plan',
+        phone: '[name="phone"]',
+        address: '[name="address"]',
+        bookingSubmit: '.booking-form [type="submit"]',
     },
     nav: {
         links: '.main-nav a',
@@ -101,7 +105,7 @@ export  const select = {
         close: 24,
     },
     datePicker: {
-        mixDaysInFuture: 14,
+        maxDaysInFuture: 14,
     },
     booking: {
         tableIdAttribute: 'data-table',
@@ -110,7 +114,7 @@ export  const select = {
       url: '//localhost:3131',
       products: 'products',
       orders: 'orders',
-      bokings: 'bookings',
+      bookings: 'bookings',
       events: 'events', 
       dateStartParamKey: 'date_gte',
       dateEndParamKey: 'date_lte',
