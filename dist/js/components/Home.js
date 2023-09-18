@@ -19,24 +19,20 @@ class Home {
         thisHome.element = utils.createDOMFromHTML(generatedHtml);
         const homeContainer = document.querySelector(select.containerOf.home);
         homeContainer.appendChild(thisHome.element);
-        console.log('thisHome.element', thisHome.element);
     }
 
     getElements() { 
         const thisHome = this; 
         thisHome.dom = {};
-        console.log('thisHome.element', thisHome.element);
-        console.log(select.containerOf.carousel);
         thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
-        console.log('thisHome.dom.carousel', thisHome.dom.carousel);
-        thisHome.dom.carousel.innerHTML = thisHome.dom.carousel;
+        //console.log('thisHome.dom.carousel', thisHome.dom.carousel);
+        thisHome.dom.carousel.innerHTML = thisHome.carousel;
     } 
 
     initDataCarousel() {
         const thisHome = this;
         console.log(dataSource.carousel);
         thisHome.data = dataSource.carousel;
-        console.log(thisHome.data);
     }
 
     initCarousel() {
