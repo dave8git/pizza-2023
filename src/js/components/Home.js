@@ -7,10 +7,10 @@ class Home {
     constructor() {
         const thisHome = this;
         thisHome.render();
-        thisHome.getElements(); 
+  
         thisHome.initDataCarousel();
         thisHome.initCarousel();
-
+        thisHome.getElements();
     }
 
     render() {
@@ -25,7 +25,7 @@ class Home {
         const thisHome = this; 
         thisHome.dom = {};
         thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
-        //console.log('thisHome.dom.carousel', thisHome.dom.carousel);
+        console.log('thisHome.dom.carousel', thisHome.dom.carousel);
         thisHome.dom.carousel.innerHTML = thisHome.carousel;
     } 
 
