@@ -1,9 +1,9 @@
 export const dataSource = {}; // eslint-disable-line no-unused-vars
 dataSource.carousel = {
     slides: [
-      '../pizza-3.jpg',
-      '../pizza-4.jpg',
-      '../pizza-5.jpg'
+      '/images/carousel/pizza-3.jpg',
+      '/images/carousel/pizza-4.jpg',
+      '/images/carousel/pizza-5.jpg'
   ]
 }
 dataSource.products = {

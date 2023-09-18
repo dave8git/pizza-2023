@@ -14,7 +14,7 @@ class Carousel extends Flickity{
 
     render(data) {
         const thisCarousel = this;
-        const generatedHtml = templates.carousel({slides: data});
+        const generatedHtml = templates.carousel(data);
         console.log('generatedHtml', generatedHtml);
         thisCarousel.element = utils.createDOMFromHTML(generatedHtml);
     }
