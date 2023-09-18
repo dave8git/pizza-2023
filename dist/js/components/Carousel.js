@@ -3,35 +3,21 @@
 import {select, settings, templates} from '../settings.js';
 import { utils } from '../utils.js';
 
-class Carousel { 
-    constructor(data, wrapper) {
+class Carousel extends Flickity{ 
+    constructor(element, options, data) {
+        super(element, options);
         const thisCarousel = this;
-        thisCarousel.render(data);
-        thisCarousel.getElements(); 
-        thisCarousel.initializeFlkty(wrapper);
+        
+        thisCarousel.render(data); 
 
     }
 
     render(data) {
         const thisCarousel = this;
-        const generatedHtml = templates.carousel(data);
+        const generatedHtml = templates.carousel({slides: data});
         console.log('generatedHtml', generatedHtml);
         thisCarousel.element = utils.createDOMFromHTML(generatedHtml);
     }
-
-    initializeFlkty(wrapper) {
-        new Flickity(wrapper, {
-            cellAlign: 'left',
-            contain: true
-        })
-    }
- 
-    
-
-    getElements() { 
-
-    }
-
 }
 
 export default Carousel;

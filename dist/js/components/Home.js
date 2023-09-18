@@ -7,10 +7,10 @@ class Home {
     constructor() {
         const thisHome = this;
         thisHome.render();
-  
+        thisHome.getElements();
         thisHome.initDataCarousel();
         thisHome.initCarousel();
-        thisHome.getElements();
+        
     }
 
     render() {
@@ -24,9 +24,6 @@ class Home {
     getElements() { 
         const thisHome = this; 
         thisHome.dom = {};
-        thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
-        console.log('thisHome.dom.carousel', thisHome.dom.carousel);
-        thisHome.dom.carousel.innerHTML = thisHome.carousel;
     } 
 
     initDataCarousel() {
@@ -36,9 +33,17 @@ class Home {
     }
 
     initCarousel() {
-        const thisHome = this; 
-        thisHome.carousel = new Carousel(thisHome.data);
-        console.log('thisHome.carousel', thisHome.carousel);
+        const thisHome = this;
+        thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
+       
+        const options = {
+            cellAlign: 'left',
+            contain: true,
+            autoPlay: 3000,
+            // Add more options as needed
+          };
+        thisHome.carousel = new Carousel(thisHome.dom.carousel, options, thisHome.data);
+  
     }
    
 
