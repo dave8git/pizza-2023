@@ -3,12 +3,16 @@ export  const select = {
       menuProduct: '#template-menu-product',
       cartProduct: '#template-cart-product', 
       bookingWidget: '#template-booking-widget',
+      home: '#template-home',
+      carousel: '#template-carousel',
     },
     containerOf: {
       menu: '#product-list',
       cart: '#cart',
       pages: '#pages', 
       booking: '.booking-wrapper',
+      home: '#home',
+      carousel: '.carousel-wrapper',
     },
     all: {
       menuProducts: '#product-list > .product',
@@ -124,6 +128,8 @@ export  const select = {
   };
   
   export const templates = {
+    carousel: Handlebars.compile(document.querySelector(select.templateOf.carousel).innerHTML),
+    home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
     bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML), 

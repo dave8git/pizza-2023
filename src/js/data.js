@@ -1,5 +1,11 @@
-const dataSource = {}; // eslint-disable-line no-unused-vars
-
+export const dataSource = {}; // eslint-disable-line no-unused-vars
+dataSource.carousel = {
+    slides: [
+      '../images/caousel/pizza-3.jpg',
+      '../images/caousel/pizza-4.jpg',
+      '../images/caousel/pizza-5.jpg'
+  ]
+}
 dataSource.products = {
   cake: {
     class: 'small',
