@@ -30,6 +30,7 @@ class Home {
         const thisHome = this;
         console.log(dataSource.carousel);
         thisHome.data = dataSource.carousel;
+        console.log('thisHome.data', thisHome.data);
     }
 
     initCarousel() {

@@ -62,11 +62,11 @@ class Cart {
         // console.log(product.amount);
         thisCart.totalNumber += product.amount;
         thisCart.subtotalPrice += product.price;
-        console.log('product', product);
-        console.log(product.amount);
-        console.log(thisCart.totalNumber);
-        console.log(thisCart.subtotalPrice);
-        console.log('product', product);
+        // console.log('product', product);
+        // console.log(product.amount);
+        // console.log(thisCart.totalNumber);
+        // console.log(thisCart.subtotalPrice);
+        // console.log('product', product);
       }
       
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
@@ -78,8 +78,8 @@ class Cart {
       thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
 
-      console.log('subtotalPrice',thisCart.subtotalPrice);
-      console.log('thisCart.totalPrice', thisCart.totalPrice);
+      // console.log('subtotalPrice',thisCart.subtotalPrice);
+      // console.log('thisCart.totalPrice', thisCart.totalPrice);
     }
     remove(cartProduct) {
       const thisCart = this;
@@ -105,7 +105,7 @@ class Cart {
       for(let prod of thisCart.products) {
         payload.products.push(prod.getData());
       }
-      console.log('payload', payload);
+      //console.log('payload', payload);
 
       const options = { 
         method: 'POST', 
@@ -119,7 +119,7 @@ class Cart {
         .then(function(response){
           return response.json();
         }).then(function(parsedResponse){
-          console.log('parsedResponse',parsedResponse);
+          //console.log('parsedResponse',parsedResponse);
         });
     }
   }

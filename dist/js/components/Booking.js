@@ -12,7 +12,7 @@ class Booking {
         thisBooking.render(); 
         thisBooking.initWidgets(); 
         thisBooking.getData();
-        console.log(thisBooking);
+        //console.log(thisBooking);
     }
 
     getData() {
@@ -37,14 +37,14 @@ class Booking {
             ],
         };
 
-        console.log(thisBooking);
+        //console.log(thisBooking);
 
         const urls = {
             booking:       settings.db.url + '/' + settings.db.bookings + '?' + params.booking.join('&'),
             eventsCurrent: settings.db.url + '/' + settings.db.events   + '?' + params.eventsCurrent.join('&'),
             eventsRepeat:  settings.db.url + '/' + settings.db.events   + '?' + params.eventsRepeat.join('&'),
         }
-        console.log('urls', urls);
+       // console.log('urls', urls);
 
         // fetch(urls.booking)                  // fetch pojedyńczy - na dole promise dla wielu 
         //     .then(function(bookingsReponse){
@@ -53,7 +53,7 @@ class Booking {
         //     .then(function(bookings){
         //         console.log(bookings);
         //     });
-        console.log('urls.eventsCurrent', urls.eventsCurrent);
+        // console.log('urls.eventsCurrent', urls.eventsCurrent);
         Promise.all([
             fetch(urls.booking),
             fetch(urls.eventsCurrent),
@@ -155,7 +155,7 @@ class Booking {
         const thisBooking = this;
         const generatedHTML = templates.bookingWidget(element); 
         thisBooking.element = utils.createDOMFromHTML(generatedHTML);
-        console.log('thisBooking.element', thisBooking.element);
+        //console.log('thisBooking.element', thisBooking.element);
         thisBooking.dom = {};
         thisBooking.dom.bookingContainer = document.querySelector(select.containerOf.booking);
         thisBooking.dom.bookingContainer.innerHTML = generatedHTML;
@@ -172,7 +172,7 @@ class Booking {
     }
 
     sendOrder() {
-        console.log('sendOrder ruszyło');
+        //console.log('sendOrder ruszyło');
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
   
@@ -187,13 +187,13 @@ class Booking {
           address: thisBooking.dom.address.value
         }
   
-        console.log("starters", thisBooking.dom.starters);
+        //console.log("starters", thisBooking.dom.starters);
         for(let starter of thisBooking.dom.starters) {
             if(starter.checked == true) {
                 payload.starters.push(starter.value);
             }
         }
-        console.log('payload', payload);
+        //console.log('payload', payload);
   
         const options = { 
           method: 'POST', 
@@ -210,7 +210,7 @@ class Booking {
             thisBooking.resetTable();
             thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
             thisBooking.updateDOM();
-            console.log('parsedResponse',parsedResponse);
+            //console.log('parsedResponse',parsedResponse);
           });
     }
 
@@ -227,7 +227,7 @@ class Booking {
         })
 
         thisBooking.dom.tableWrapper.addEventListener('click', function(e) {
-            console.log('init tables się uruchamia');
+            //console.log('init tables się uruchamia');
             thisBooking.initTables(e);
         });
 
@@ -260,7 +260,7 @@ class Booking {
                 alert("Ten stolik już zajęty jest... lalalala <-- Oddział Zamknięty tribute");
             } else {
                 thisBooking.tableData = e.target.getAttribute('data-table');
-                console.log(thisBooking.tableData);
+                //console.log(thisBooking.tableData);
                 e.target.classList.toggle('selected');
             }
         }

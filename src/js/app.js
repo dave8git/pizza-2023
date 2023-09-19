@@ -60,7 +60,7 @@ const app = {
       const thisApp = this; 
       thisApp.home = new Home();
 
-      console.log('thisApp.home', thisApp.home);
+      //console.log('thisApp.home', thisApp.home);
     },
 
     initCart: function() {
@@ -85,7 +85,7 @@ const app = {
           return rawResponse.json(); 
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
+          //console.log('parsedResponse', parsedResponse);
           thisApp.data.products = parsedResponse; /* save parsedResponse as thisApp.data.products */
           thisApp.initMenu();/* execute initMenu method */
         });

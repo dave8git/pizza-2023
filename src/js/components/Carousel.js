@@ -2,21 +2,23 @@
 
 import {select, settings, templates} from '../settings.js';
 import { utils } from '../utils.js';
-
-class Carousel extends Flickity{ 
+class Carousel { 
     constructor(element, options, data) {
-        super(element, options);
         const thisCarousel = this;
-        
-        thisCarousel.render(data); 
+        thisCarousel.dom = {};
+        console.log('element', element);
+        thisCarousel.dom.wrapper = element;
+        thisCarousel.render(data, options); 
 
     }
 
-    render(data) {
+    render(data, options) {
         const thisCarousel = this;
         const generatedHtml = templates.carousel(data);
         console.log('generatedHtml', generatedHtml);
         thisCarousel.element = utils.createDOMFromHTML(generatedHtml);
+        thisCarousel.dom.wrapper.appendChild(thisCarousel.element);
+        let flkty = new Flickity(thisCarousel.dom.wrapper, options);
     }
 }
 
