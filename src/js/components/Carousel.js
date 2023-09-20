@@ -13,8 +13,10 @@ class Carousel {
     }
 
     render(data, options) {
+        console.log('data from render', data);
         const thisCarousel = this;
-        const generatedHtml = templates.carousel(data);
+        const generatedHtml = templates.carousel({slides: data});
+        //console.log('data', data);
         console.log('generatedHtml', generatedHtml);
         thisCarousel.element = utils.createDOMFromHTML(generatedHtml);
         thisCarousel.dom.wrapper.appendChild(thisCarousel.element);

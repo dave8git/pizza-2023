@@ -122,6 +122,7 @@ export  const select = {
       products: 'products',
       orders: 'orders',
       bookings: 'bookings',
+      slides: 'slides',
       events: 'events', 
       dateStartParamKey: 'date_gte',
       dateEndParamKey: 'date_lte',

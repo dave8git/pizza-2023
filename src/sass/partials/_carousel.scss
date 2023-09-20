@@ -1,3 +1,24 @@
+
+.imgCarousel {
+    display: flex;
+    width: 660px;
+    height: 320px;
+}
+
 .imgCarousel-1 {
-    background-image: url(images/carousel/pizza-3.jpg);
+    @extend .imgCarousel;
+    background-image: url('./../../images/carousel/pizza-4.jpg');
+}
+
+.imgCarousel-2 {
+    @extend .imgCarousel;
+    background-image: url('./../../images/carousel/pizza-5.jpg');
+}
+
+.imgCarousel-3 {
+    @extend .imgCarousel;
+    color: white;
+    width: 100px;
+    height: 100px;
+    background-image: url('./../../images/carousel/pizza-6.jpg');
 }

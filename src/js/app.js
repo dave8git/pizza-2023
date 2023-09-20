@@ -91,12 +91,6 @@ const app = {
         });
 
         console.log('thisApp.data', JSON.stringify(thisApp.data)); //ten console.log wyświetli się wcześniej niż console.log('parsedResponse', parasedResponse), bo jest zaraz po udanym fetch, a tamten console log, jest po then
-      
-      // const urlCarousel = settings.db.url + '/' + settings.db.slides
-      // fetch(urlCarousel)
-      //   .then(function(rawResponse) {
-      //     return rawResponse();
-      //   })
       },
 
     initMenu: function () {
