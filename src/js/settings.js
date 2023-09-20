@@ -41,6 +41,9 @@ export  const select = {
         wrapper: '.hour-picker', 
         input: `input[type="range"]`,
         output: '.output',
+      },
+      starters: {
+        input: `input[type="checkbox"]`,
       }
     },
     booking: {

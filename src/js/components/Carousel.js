@@ -1,6 +1,6 @@
 /* global Flickity */
 
-import {select, settings, templates} from '../settings.js';
+import { templates } from '../settings.js';
 import { utils } from '../utils.js';
 class Carousel { 
     constructor(element, options, data) {
@@ -14,11 +14,11 @@ class Carousel {
 
     render(data, options) {
         const thisCarousel = this;
-        const generatedHtml = templates.carousel({slides: data});
+        const generatedHtml = templates.carousel(data);
         console.log('generatedHtml', generatedHtml);
         thisCarousel.element = utils.createDOMFromHTML(generatedHtml);
         thisCarousel.dom.wrapper.appendChild(thisCarousel.element);
-        let flkty = new Flickity(thisCarousel.dom.wrapper, options);
+        new Flickity(thisCarousel.dom.wrapper, options);
     }
 }
 

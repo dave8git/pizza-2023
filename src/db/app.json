@@ -1,4 +1,9 @@
-{
+   {
+    "slides":[
+         {
+            "classImg": "imgCarousel-1"
+         }
+    ],
     "products":[
        {
           "id":"cake",

@@ -165,13 +165,13 @@ class Booking {
         thisBooking.dom.datePicker = document.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.tables = thisBooking.dom.bookingContainer.querySelectorAll(select.booking.tables);
         thisBooking.dom.tableWrapper = document.querySelector(select.booking.tableWrapper);
-        thisBooking.dom.phone = document.querySelector(select.booking.phone);
-        thisBooking.dom.address = document.querySelector(select.booking.address);
-        thisBooking.dom.starters = document.querySelectorAll(select.widgets.amount.input);
+        thisBooking.dom.phone = thisBooking.dom.bookingContainer.querySelector(select.booking.phone);
+        thisBooking.dom.address = thisBooking.dom.bookingContainer.querySelector(select.booking.address);
+        thisBooking.dom.starters = thisBooking.dom.bookingContainer.querySelectorAll(select.widgets.starters.input);
         thisBooking.dom.submit = document.querySelector(select.booking.bookingSubmit);
     }
 
-    sendOrder() {
+    sendBooking() {
         //console.log('sendOrder ruszyło');
         const thisBooking = this;
         const url = settings.db.url + '/' + settings.db.bookings;
@@ -186,12 +186,15 @@ class Booking {
           phone: thisBooking.dom.phone.value,
           address: thisBooking.dom.address.value
         }
-  
+        
+        console.log('payload.address', payload.starters);
         //console.log("starters", thisBooking.dom.starters);
         for(let starter of thisBooking.dom.starters) {
+            console.log(starter.checked);
             if(starter.checked == true) {
                 payload.starters.push(starter.value);
             }
+            console.log(payload.starters);
         }
         //console.log('payload', payload);
   
@@ -210,7 +213,7 @@ class Booking {
             thisBooking.resetTable();
             thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
             thisBooking.updateDOM();
-            //console.log('parsedResponse',parsedResponse);
+            console.log('parsedResponse',parsedResponse);
           });
     }
 
@@ -233,7 +236,7 @@ class Booking {
 
         thisBooking.dom.submit.addEventListener('click', function(e) {
             e.preventDefault(); 
-            thisBooking.sendOrder();
+            thisBooking.sendBooking();
         });
 
         thisBooking.dom.peopleAmount.addEventListener('click', function() {
