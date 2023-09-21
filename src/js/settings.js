@@ -132,7 +132,6 @@ export  const select = {
   };
   
   export const templates = {
-    carousel: Handlebars.compile(document.querySelector(select.templateOf.carousel).innerHTML),
     home: Handlebars.compile(document.querySelector(select.templateOf.home).innerHTML),
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),

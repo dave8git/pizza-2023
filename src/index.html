@@ -79,17 +79,16 @@
   <script id="template-home" type="text/x-handlebars-template">
     <div class="container">
       <h1>Home & Carousel</h1>
-      <div class="carousel-wrapper"></div>
+      <div class="carousel-wrapper">
+        {{#each slides}}
+          <div class="carousel-cell {{ classImg }}">
+ 
+          </div>
+        {{/each}}
+      </div>
     </div>
   </script>
 
-  <script id="template-carousel" type="text/x-handlebars-template">
-    {{#each slides}}
-      <div class="carousel-cell {{ classImg }}">
- 
-      </div>
-    {{/each}}
-  </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>

@@ -7,17 +7,17 @@ class Home {
     constructor() {
         const thisHome = this;
         thisHome.getElements();
-        thisHome.render();
         thisHome.initDataCarousel();
-        //thisHome.initCarousel();
-
+        thisHome.render();
     }
 
-    render() {
+    render(data) {
         const thisHome = this;
-        const generatedHtml = templates.home();
+        const generatedHtml = templates.home({slides: data});
         thisHome.element = utils.createDOMFromHTML(generatedHtml);
+        console.log('thisHome.element', thisHome.element);
         const homeContainer = document.querySelector(select.containerOf.home);
+        console.log('homeContainer', homeContainer);
         homeContainer.appendChild(thisHome.element);
     }
 
@@ -38,7 +38,7 @@ class Home {
             .then(function (parsedResponse) {
                 console.log('parsedResponse', parsedResponse);
                 thisHome.dom.data = parsedResponse;
-                thisHome.initCarousel(thisHome.dom.data);
+                thisHome.render(thisHome.dom.data);
             });
            
     }
@@ -48,7 +48,7 @@ class Home {
 
 
         console.log('data', data); // Log thisHome.data, not thisHome.dom.data
-        thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
+        //thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
     
         const options = {
             cellAlign: 'left',
@@ -57,7 +57,7 @@ class Home {
             // Add more options as needed
         };
         console.log('data from Home', data);
-        thisHome.carousel = new Carousel(thisHome.dom.carousel, options, data);
+        thisHome.carousel = new Carousel(thisHome.dom.carousel, options);
     
     }
 
