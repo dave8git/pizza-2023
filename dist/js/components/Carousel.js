@@ -9,6 +9,7 @@ class Carousel {
     render(element) {
         const thisCarousel = this;
         thisCarousel.element = element;
+        //console.log('thisCarousel.element', thisCarousel.element);
     }
 
     initPlugin() {

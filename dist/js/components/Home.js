@@ -1,24 +1,19 @@
 import { select, settings, templates } from '../settings.js';
-import { dataSource } from '../data.js'
 import { utils } from '../utils.js';
 import Carousel from './Carousel.js';
 
 class Home {
-    constructor() {
+    constructor() { // constructor runs only once when class is instantiated!!!! 
         const thisHome = this;
         thisHome.getElements();
         thisHome.initDataCarousel();
-        thisHome.render();
-        thisHome.initCarousel();
     }
 
     render(data) {
         const thisHome = this;
         const generatedHtml = templates.home({slides: data});
         thisHome.element = utils.createDOMFromHTML(generatedHtml);
-        console.log('thisHome.element', thisHome.element);
         const homeContainer = document.querySelector(select.containerOf.home);
-        console.log('homeContainer', homeContainer);
         homeContainer.appendChild(thisHome.element);
     }
 
@@ -40,27 +35,19 @@ class Home {
                 console.log('parsedResponse', parsedResponse);
                 thisHome.dom.data = parsedResponse;
                 thisHome.render(thisHome.dom.data);
+                thisHome.initCarousel();
             });
+
            
     }
 
-    initCarousel(data) {
+    initCarousel() {
         const thisHome = this;
-
-
-        console.log('data', data); // Log thisHome.data, not thisHome.dom.data
-        //thisHome.dom.carousel = thisHome.element.querySelector('.carousel-wrapper');
-    
         const options = {
             cellAlign: 'left',
-            contain: true,
-            autoPlay: 3000,
-            // Add more options as needed
+            contain: true
         };
-        const elementWrapper = thisHome.element.querySelector('.carousel-wrapper');
-        console.log('elementWrapper', elementWrapper);
-        console.log('data from Home', data);
-        console.log('thisHome.element', thisHome.element);
+        const elementWrapper = document.querySelector('.carousel-wrapper');
         thisHome.carousel = new Carousel(elementWrapper, options);
     
     }
