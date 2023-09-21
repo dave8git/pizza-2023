@@ -9,6 +9,7 @@ class Home {
         thisHome.getElements();
         thisHome.initDataCarousel();
         thisHome.render();
+        thisHome.initCarousel();
     }
 
     render(data) {
@@ -56,8 +57,11 @@ class Home {
             autoPlay: 3000,
             // Add more options as needed
         };
+        const elementWrapper = thisHome.element.querySelector('.carousel-wrapper');
+        console.log('elementWrapper', elementWrapper);
         console.log('data from Home', data);
-        thisHome.carousel = new Carousel(thisHome.dom.carousel, options);
+        console.log('thisHome.element', thisHome.element);
+        thisHome.carousel = new Carousel(elementWrapper, options);
     
     }
 
