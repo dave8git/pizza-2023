@@ -1,11 +1,25 @@
+/* external css: flickity.css, fullscreen.css */
+
+* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  background: #222;
+}
+
+.home {
+    width: 100%;
+}
 
 .imgCarousel {
+    width: 600px;
+    height: 330px;
+    margin-right: 10px;
+    /* center images in cells with flexbox */
     display: flex;
-    width: 660px;
-    height: 320px;
-    background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+    align-items: center;
+    justify-content: center;
 }
 
 .imgCarousel-1 {
@@ -22,3 +36,94 @@
     @extend .imgCarousel;
     background-image: url('./../../images/carousel/pizza-6.jpg');
 }
+
+.imgBanner {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imgBanner-1 {
+    @extend .imgBanner;
+    background-image: url('./../../images/carousel/pizza-1.jpg');
+    width: 500px;
+    margin: 10px;
+}
+
+.imgBanner-2 {
+    @extend .imgBanner;
+    background-image: url('./../../images/carousel/pizza-2.jpg');
+    width: 500px;
+    margin: 10px 5px 10px 0px;
+}
+
+.imgBanner-3 {
+    @extend .imgBanner;
+    background-color: salmon;
+    margin: 0px 7px 10px 7px;
+    
+}
+
+.carousel-wrapper {
+    margin: 0 auto;
+    max-width: 930px;
+}
+
+.carousel-text {
+    width: 340px;
+}
+
+.carousel-cell {
+    max-width: 1000px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.bannerContainer {
+    max-width: 1000px; 
+    margin: 0 auto;
+}
+
+.topBannerContainer {
+    display: flex;
+}
+
+/* --- Gallery --- */
+
+.gallery {
+    max-width: 600px;
+    margin: 60px auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.image {
+    background-image: url('./../../images/carousel/pizza-6.jpg');
+    width: calc(33.33% - 10px); /* 33.33% width with 10px margin between images */
+    height: 0;
+    padding-bottom: 33.33%; /* Create a square aspect ratio (1:1) */
+    background-color: #ddd; /* Placeholder background color */
+    margin-right: 10px; /* Add some margin between images */
+}
+
+/* Clear the margin on the last image in a row */
+.row .image:last-child {
+    margin-right: 0;
+}
+
+// .carousel.is-fullscreen .carousel-cell {
+//   height: 100%;
+// }
+
+// .carousel-cell-image {
+//   display: block;
+//   max-height: 100%;
+// }
+
+// .carousel.is-fullscreen .carousel-cell-image {
+//   max-width: 100%;
+// }

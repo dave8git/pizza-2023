@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzeria</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext"
+    rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.2/flickity.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="./vendor/range-slider.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <header class="header">
@@ -77,16 +80,44 @@
   </div>
 
   <script id="template-home" type="text/x-handlebars-template">
-
+    <div>
+      <div class="bannerContainer">
+        <div class="topBannerContainer">
+          <div class="imgBanner-1">jkl</div>
+          <div class="imgBanner-2">jlkj</div>
+        </div>
+          <div class="imgBanner-3">jlkj</div>
+      </div>
       <div class="carousel-wrapper">
         {{#each slides}}
-          <div class="carousel-cell {{ classImg }}">
- 
+          <div class="carousel-cell">
+            <div class="{{ classImg }}">
+
+            </div>
+            <div class="carousel-text">
+              <h5>{{ title }}</h5>
+              <p>{{ description }}</p>
+              <p>{{ author }}</p>
+            </div>
           </div>
         {{/each}}
     </div>
+    <div class="gallery">
+
+    </div>
+    </div>
+    
   </script>
 
+  <script id="gallery-template" type="text/x-handlebars-template">
+    {{#each rows}}
+      <div class="row">
+        {{#each this}}
+          <div class="image" style="background-image: url('{{this}}');"></div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
@@ -265,4 +296,5 @@
   <script src="./vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
+
 </html>

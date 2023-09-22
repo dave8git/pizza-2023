@@ -1,9 +1,9 @@
 /* global Flickity */
 class Carousel { 
-    constructor(element) {
+    constructor(element, options) {
         const thisCarousel = this; 
         thisCarousel.render(element);
-        thisCarousel.initPlugin();
+        thisCarousel.initPlugin(options);
     }
 
     render(element) {
@@ -12,9 +12,9 @@ class Carousel {
         //console.log('thisCarousel.element', thisCarousel.element);
     }
 
-    initPlugin() {
+    initPlugin(options) {
         const thisCarousel = this;
-        new Flickity(thisCarousel.element);
+        new Flickity(thisCarousel.element, options);
     }
 
 }

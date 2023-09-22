@@ -1,15 +1,28 @@
    {
       "slides": [
             {
-               "classImg": "imgCarousel-1"
+               "classImg": "imgCarousel-1",
+               "title": "Smaczna i gorąca pizza!",
+               "description": "Pizza po którą warto ustawić się w kolejce!",
+               "author": "SMK jr."
             },
             {
-               "classImg": "imgCarousel-2"
+               "classImg": "imgCarousel-2",
+               "title": "Smaczna i gorąca pizza!",
+               "description": "Pizza po którą warto ustawić się w kolejce!",
+               "author": "SMK jr."
             },
             {
-               "classImg": "imgCarousel-3"
+               "classImg": "imgCarousel-3",
+               "title": "Smaczna i gorąca pizza!",
+               "description": "Pizza po którą warto ustawić się w kolejce!",
+               "author": "SMK jr."
             }
          ],
+      "rows": [
+         ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"],
+         ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"]
+      ],
       "products": [
          {
             "id": "cake",
