@@ -20,8 +20,8 @@
             }
          ],
       "rows": [
-         ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"],
-         ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"]
+        { "row": ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"]},
+        { "row": ["background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');", "background-image: url('./../../images/carousel/pizza-4.jpg');"]}
       ],
       "products": [
          {
