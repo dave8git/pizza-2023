@@ -688,7 +688,9 @@ body {
   height: 0;
   padding-bottom: 33.33%; /* Create a square aspect ratio (1:1) */
   background-color: #ddd; /* Placeholder background color */
+  background-size: cover;
   margin-right: 10px; /* Add some margin between images */
+
 }
 
 /* Clear the margin on the last image in a row */
