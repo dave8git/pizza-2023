@@ -37,33 +37,6 @@ body { font-family: sans-serif; }
     background-image: url('./../../images/carousel/pizza-6.jpg');
 }
 
-.imgBanner {
-    height: 200px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.imgBanner-1 {
-    @extend .imgBanner;
-    background-image: url('./../../images/carousel/pizza-1.jpg');
-    width: 500px;
-    margin: 10px;
-}
-
-.imgBanner-2 {
-    @extend .imgBanner;
-    background-image: url('./../../images/carousel/pizza-2.jpg');
-    width: 500px;
-    margin: 10px 5px 10px 0px;
-}
-
-.imgBanner-3 {
-    @extend .imgBanner;
-    background-color: salmon;
-    margin: 0px 7px 10px 7px;
-    
-}
-
 .carousel-wrapper {
     margin: 0 auto;
     max-width: 930px;
@@ -71,7 +44,11 @@ body { font-family: sans-serif; }
 
 .carousel-text {
     width: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 
 .carousel-cell {
     max-width: 1000px;
@@ -79,19 +56,10 @@ body { font-family: sans-serif; }
     margin: 0 auto;
 }
 
-.bannerContainer {
-    max-width: 1000px; 
-    margin: 0 auto;
-}
-
-.topBannerContainer {
-    display: flex;
-}
-
 /* --- Gallery --- */
 
 .gallery {
-    max-width: 600px;
+    max-width: 1000px;
     margin: 60px auto;
 }
 

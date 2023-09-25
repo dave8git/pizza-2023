@@ -83,10 +83,21 @@
     <div>
       <div class="bannerContainer">
         <div class="topBannerContainer">
-          <div class="imgBanner-1">jkl</div>
-          <div class="imgBanner-2">jlkj</div>
+          <div class="imgBanner-1">
+            <div class="imgBannerText-1">ORDER ONLINE</div>
+            <div class="imgBannerText-2">Delivered to your neighboor.</div>
+          </div>
+          <div class="imgBanner-2">
+            <div class="imgBannerText-1">BOOK A TABLE</div>
+            <div class="imgBannerText-2">Or go somewhere else :)</div>
+          </div>
         </div>
-          <div class="imgBanner-3">jlkj</div>
+          <div class="imgBanner-3">
+            <div class="bannerHours">
+                <h1>OPENING HOURS:</h1>
+                <h3>MON - SUN, 12PM - 11PM</h3>
+            </div>
+          </div>
       </div>
       <div class="carousel-wrapper">
         {{#each slides}}
@@ -103,20 +114,24 @@
         {{/each}}
     </div>
     <div class="gallery">
-
+      
     </div>
+    
     </div>
     
   </script>
 
   <script id="gallery-template" type="text/x-handlebars-template">
-    {{#each rows}}
+    <div>
+      {{#each rows}}
       <div class="row">
         {{#each row}}
           <div class="image" style="background-image: url('{{this}}');"></div>
         {{/each}}
       </div>
     {{/each}}
+    <a href="http://instagram.com" target="_blank" rel="noopener noreferrer">Here's our instachłam</a>
+    </div>
   </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">

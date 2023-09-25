@@ -1,6 +1,7 @@
 import { select, settings, templates } from '../settings.js';
 import { utils } from '../utils.js';
 import Carousel from './Carousel.js';
+import Gallery from './Gallery.js';
 
 class Home {
     constructor() { // constructor runs only once when class is instantiated!!!! 
@@ -17,17 +18,17 @@ class Home {
         homeContainer.appendChild(thisHome.element);
     }
 
-    renderGallery(dataGallery) {
-        const thisHome = this; 
-        console.log(dataGallery);
-        const generatedGallery = templates.gallery({rows: dataGallery})
-        console.log('generatedGallery HTML', generatedGallery);
-        thisHome.gallery = utils.createDOMFromHTML(generatedGallery);
-        console.log('thisHome.gallery', thisHome.gallery);
-        const galleryContainer = document.querySelector('.gallery');
-        console.log(galleryContainer)
-        galleryContainer.appendChild(thisHome.gallery);
-    }
+    // renderGallery(dataGallery) {
+    //     const thisHome = this; 
+    //     console.log(dataGallery);
+    //     const generatedGallery = templates.gallery({rows: dataGallery})
+    //     console.log('generatedGallery HTML', generatedGallery);
+    //     thisHome.gallery = utils.createDOMFromHTML(generatedGallery);
+    //     console.log('thisHome.gallery', thisHome.gallery);
+    //     const galleryContainer = document.querySelector('.gallery');
+    //     console.log(galleryContainer)
+    //     galleryContainer.appendChild(thisHome.gallery);
+    // }
     getElements() {
         const thisHome = this;
         thisHome.dom = {};
@@ -58,7 +59,8 @@ class Home {
                 thisHome.render(thisHome.dom.data);
                 thisHome.initCarousel();
                 console.log('gallery data', gallery)
-                thisHome.renderGallery(gallery);
+                //thisHome.renderGallery(gallery);
+                new Gallery(gallery)
             });   
     }
 

@@ -1,0 +1,97 @@
+.bannerHours {
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.bannerContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    color: white;
+}
+
+.topBannerContainer {
+    display: flex;
+    width: 100%;
+}
+
+.openingHoursSection {
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.imgBanner {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imgBanner-1 {
+    @extend .imgBanner;
+    background-image: url('./../../images/carousel/pizza-1.jpg');
+    width: 500px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    align-items: center;
+}
+
+.imgBanner-2 {
+    @extend .imgBanner;
+    background-image: url('./../../images/carousel/pizza-2.jpg');
+    width: 500px;
+    margin: 10px 5px 10px 0px;
+    // display: flex;
+    // justify-content: center;
+    // font-weight: bold;
+    // align-items: center;
+}
+
+.imgBanner-3 {
+    @extend .imgBanner;
+    background-color: salmon;
+    margin: 0px 7px 10px 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgBanner-2, .imgBanner-1 {
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+
+.imgBannerText-2 {
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom .8s ease-in-out, opacity .5s ease-in-out;
+    opacity: 0;
+    font-weight: bold;
+}
+
+.imgBanner-2:hover .imgBannerText-2, .imgBanner-1:hover .imgBannerText-2 {
+    bottom: 20%; 
+    opacity: 1;
+}
+
+.imgBannerText-1 {
+    position: absolute;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom .8s ease-in-out, opacity .5s ease-in-out;
+    color: white;
+    z-index: 2;
+    font-weight: bold;
+}
+
+.imgBanner-2:hover .imgBannerText-1, .imgBanner-1:hover .imgBannerText-1{
+    bottom: 60%;
+}
+
+
+
