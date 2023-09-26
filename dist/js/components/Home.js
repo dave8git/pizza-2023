@@ -4,8 +4,9 @@ import Carousel from './Carousel.js';
 import Gallery from './Gallery.js';
 
 class Home {
-    constructor() { // constructor runs only once when class is instantiated!!!! 
+    constructor(homeContainer) { // constructor runs only once when class is instantiated!!!! 
         const thisHome = this;
+        thisHome.homeContainer = homeContainer; 
         thisHome.getElements();
         thisHome.initDataCarousel();
     }
@@ -14,8 +15,7 @@ class Home {
         const thisHome = this;
         const generatedHtml = templates.home({slides: data});
         thisHome.element = utils.createDOMFromHTML(generatedHtml);
-        const homeContainer = document.querySelector(select.containerOf.home);
-        homeContainer.appendChild(thisHome.element);
+        thisHome.homeContainer.appendChild(thisHome.element);
     }
 
     // renderGallery(dataGallery) {
@@ -58,6 +58,8 @@ class Home {
                 thisHome.dom.data = carousel;
                 thisHome.render(thisHome.dom.data);
                 thisHome.initCarousel();
+                const customEvent = new Event('ready'); 
+                thisHome.homeContainer.dispatchEvent(customEvent); // bąbelkowanie nie jest potrzebne ponieważ wywołujemy i nasłuchujemy (obiekt app linijka 62) na tym samym elemencie dom
                 console.log('gallery data', gallery)
                 //thisHome.renderGallery(gallery);
                 new Gallery(gallery)
@@ -73,10 +75,7 @@ class Home {
         };
         const elementWrapper = document.querySelector('.carousel-wrapper');
         thisHome.carousel = new Carousel(elementWrapper, options);
-    
     }
-
-
 }
 
 export default Home;

@@ -14,7 +14,7 @@ const app = {
       const thisApp = this;
       thisApp.pages = document.querySelector(select.containerOf.pages).children;
       thisApp.navLinks = document.querySelectorAll(select.nav.links);
-
+      console.log('thisApp.navLinks', thisApp.navLinks);
       const idFromHash = window.location.hash.replace('#/', '');
 
       let pageMatchingHash = thisApp.pages[0].id; 
@@ -58,7 +58,9 @@ const app = {
     },
     initHome: function() {
       const thisApp = this; 
-      thisApp.home = new Home();
+      const homeContainer = document.querySelector(select.containerOf.home);
+      homeContainer.addEventListener('ready', function() {thisApp.initPages()}); // musi być w funkcji bo ma się wykonać kiedy będzie ready a nie od razu
+      thisApp.home = new Home(homeContainer);
 
       //console.log('thisApp.home', thisApp.home);
     },
@@ -112,12 +114,13 @@ const app = {
       //console.log('classNames:', classNames);
       //console.log('settings:', settings);
       //console.log('templates:', templates);
-      thisApp.initPages();
+      
       thisApp.initData();
       //thisApp.initMenu();
       thisApp.initHome();
       thisApp.initCart();
       thisApp.initBooking();
+      //thisApp.initPages();
     },
   };
 

@@ -57,7 +57,7 @@ export  const select = {
         bookingSubmit: '.booking-form [type="submit"]',
     },
     nav: {
-        links: '.main-nav a',
+        links: '.nav-link',
     },
     cart: {
       productList: '.cart__order-summary',
